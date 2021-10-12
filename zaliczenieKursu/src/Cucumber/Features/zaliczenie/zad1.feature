@@ -24,7 +24,7 @@ Feature: Login and add address
 
     Examples:
       |alias|firstName | lastName |company|vat|addressLine1  |addressLine2 |city    |zipPostcode    |country          | phone     |
-      |LL   |Monika    | Toll     |MT     |23 |ul.3Maja      |11/1         |Warszawa| 00-800        |United Kingdom   | 661651155 |
+      |LL   |Monika    | Toll     |MT     |23 |ul.3Maja      |11/1         |Warsaw  | 00-800        |United Kingdom   | 661651155 |
 
 
 

@@ -15,13 +15,13 @@ public class zad1_LoginPlusAddress {
     private WebDriver driver;
 
 
-    @Given("Open browser with https://mystore-testlab.coderslab.pl/index.php")
+    @Given("Open browser with https://mystore-testlab.coderslab.pl")
     public void openSite() {
         System.setProperty("webdriver.chrome.driver", "src/main/resources/drivers/chromedriver.exe");
         driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         driver.manage().window().maximize();
-        driver.get("https://mystore-testlab.coderslab.pl/index.php");
+        driver.get("https://mystore-testlab.coderslab.pl");
     }
 
     @And("SignIn button clicked")
@@ -108,7 +108,7 @@ public class zad1_LoginPlusAddress {
 
     @And("Submit sheet")
     public void SubmitSheet() {
-        WebElement submitSheet = driver.findElement(By.xpath("//*[@id=\"content\"]/div/div/form/footer/button"));
+        WebElement submitSheet = driver.findElement(By.className("btm-primary"));
         submitSheet.click();
     }
 
