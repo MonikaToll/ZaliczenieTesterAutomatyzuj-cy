@@ -1,1 +1,1 @@
-# ZaliczenieTesterAutomatyzuj-cy
+# ZaliczenieTesterAutomatyzujacy
