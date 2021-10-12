@@ -1,0 +1,5 @@
+exercises:
+    '01_Zadanie 1 Gherkin': { max_points: 0, disabled: true }
+    '02_Zadanie 2 Cucumber': { max_points: 0, disabled: true }
+    '03_Zadanie 3 Cucumber': { max_points: 0, disabled: true }
+    '04_Zadanie 4 Cucumber': { max_points: 0, disabled: true }
