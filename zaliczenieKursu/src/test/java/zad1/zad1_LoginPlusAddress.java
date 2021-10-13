@@ -19,7 +19,7 @@ public class zad1_LoginPlusAddress {
     public void openSite() {
         System.setProperty("webdriver.chrome.driver", "src/main/resources/drivers/chromedriver.exe");
         driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         driver.get("https://mystore-testlab.coderslab.pl");
     }
@@ -56,16 +56,26 @@ public class zad1_LoginPlusAddress {
 
     @Then("Create new address button clicked")
     public void CreateNewAddressButtonClick() {
-        WebElement createNewAddressButtonClick = driver.findElement(By.className("addresses-footer"));
+        WebElement createNewAddressButtonClick = driver.findElement(By.xpath("//*[@id=\"content\"]/div[4]/a/span"));
         createNewAddressButtonClick.click();
     }
 
     @Then("Fill sheet with (.*), (.*), (.*), (.*), (.*), (.*), (.*) and (.*)")
-    public void FillSheet(String alias, String company, String vat, String addressLine1, String addressLine2, String zipPostcode, String city, String phone) {
+    public void FillSheet(String alias, String firstName, String lastName, String company, String vat, String addressLine1, String addressLine2, String zipPostcode, String city, String phone) {
         WebElement aliasField = driver.findElement(By.name("alias"));
         aliasField.click();
         aliasField.clear();
         aliasField.sendKeys(alias);
+
+        WebElement firstnameField = driver.findElement(By.name("firstname"));
+        firstnameField.click();
+        firstnameField.clear();
+        firstnameField.sendKeys(firstName);
+
+        WebElement lastnameField = driver.findElement(By.name("lastname"));
+        lastnameField.click();
+        lastnameField.clear();
+        lastnameField.sendKeys(lastName);
 
         WebElement companyField = driver.findElement(By.name("company"));
         companyField.click();
@@ -87,23 +97,23 @@ public class zad1_LoginPlusAddress {
         address2Field.clear();
         address2Field.sendKeys(addressLine2);
 
-        WebElement postcodeField = driver.findElement(By.name("postcode"));
-        postcodeField.click();
-        postcodeField.clear();
-        postcodeField.sendKeys(zipPostcode);
-
         WebElement cityField = driver.findElement(By.name("city"));
         cityField.click();
         cityField.clear();
         cityField.sendKeys(city);
 
+        WebElement postcodeField = driver.findElement(By.name("postcode"));
+        postcodeField.click();
+        postcodeField.clear();
+        postcodeField.sendKeys(zipPostcode);
+
+        WebElement countryField = driver.findElement(By.xpath("//*[@id=\"form-fields\"]/div[10]/div[1]/select/option[2]"));
+        countryField.click();
+
         WebElement phoneField = driver.findElement(By.name("phone"));
         phoneField.click();
         phoneField.clear();
         phoneField.sendKeys(phone);
-
-        WebElement countryField = driver.findElement(By.xpath("//*[@id=\"content\"]/div/div/form/section/div[10]/div[1]/select/option[2]"));
-        countryField.click();
     }
 
     @And("Submit sheet")
