@@ -2,19 +2,20 @@ Feature: zad2_Order
 
   Scenario Outline: order clothes in on-line shop
     Given Open browser with https://mystore-testlab.coderslab.pl/index.php
-    And SignIn button clicked
+    And SignIn button approved
 
-    Then Input qwerty@wp.pl and 12345 in LogIn page
-    And Submit LogIn Data
+    Then Input qwerty@wp.pl and 12345 in LogIn area
+    And User LogIn to the shop
 
     Then Search <productName> in search area
     And Open product page
 
     Then Select correct <size>
-    And Choose <quantity>
+    And Choose quantity <quantity>
 
     Then Add products to cart
     And Go to checkout
+    And Proceed to checkout
 
     Then Choose address to order
     And Confirm to continue

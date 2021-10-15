@@ -8,6 +8,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
@@ -15,7 +17,7 @@ public class zad1_LoginPlusAddress {
     private WebDriver driver;
 
 
-    @Given("Open browser with https://mystore-testlab.coderslab.pl")
+    @Given("Open mystore browser with https://mystore-testlab.coderslab.pl")
     public void openSite() {
         System.setProperty("webdriver.chrome.driver", "src/main/resources/drivers/chromedriver.exe");
         driver = new ChromeDriver();
@@ -43,9 +45,9 @@ public class zad1_LoginPlusAddress {
     }
 
     @And("Submit LogIn Data")
-    public void SubmitLogIn() {
-        WebElement submitLogIn = driver.findElement(By.id("submit-login"));
-        submitLogIn.click();
+    public void SubmitLogUser() {
+        WebElement submitLogUser = driver.findElement(By.id("submit-login"));
+        submitLogUser.click();
     }
 
     @Then("Add new address button clicked")
@@ -56,12 +58,12 @@ public class zad1_LoginPlusAddress {
 
     @Then("Create new address button clicked")
     public void CreateNewAddressButtonClick() {
-        WebElement createNewAddressButtonClick = driver.findElement(By.xpath("//*[@id=\"content\"]/div[4]/a/span"));
+        WebElement createNewAddressButtonClick = driver.findElement(By.xpath("//div[@class=\"addresses-footer\"]/a"));
         createNewAddressButtonClick.click();
     }
 
-    @Then("Fill sheet with (.*), (.*), (.*), (.*), (.*), (.*), (.*) and (.*)")
-    public void FillSheet(String alias, String firstName, String lastName, String company, String vat, String addressLine1, String addressLine2, String zipPostcode, String city, String phone) {
+    @Then("Fill sheet with (.*), (.*), (.*), (.*), (.*), (.*), (.*), (.*), (.*), (.*) and (.*)")
+    public void FillSheet(String alias, String firstName, String lastName, String company, String vat, String addressLine1, String addressLine2, String city, String zipPostcode, String country, String phone) {
         WebElement aliasField = driver.findElement(By.name("alias"));
         aliasField.click();
         aliasField.clear();
@@ -107,8 +109,8 @@ public class zad1_LoginPlusAddress {
         postcodeField.clear();
         postcodeField.sendKeys(zipPostcode);
 
-        WebElement countryField = driver.findElement(By.xpath("//*[@id=\"form-fields\"]/div[10]/div[1]/select/option[2]"));
-        countryField.click();
+        WebElement countryField1 = driver.findElement(By.xpath("//select[@name=\"id_country\"]/option[2]"));
+        countryField1.click();
 
         WebElement phoneField = driver.findElement(By.name("phone"));
         phoneField.click();
@@ -118,36 +120,26 @@ public class zad1_LoginPlusAddress {
 
     @And("Submit sheet")
     public void SubmitSheet() {
-        WebElement submitSheet = driver.findElement(By.className("btm-primary"));
+        WebElement submitSheet = driver.findElement(By.xpath("//button[@class=\"btn btn-primary float-xs-right\"]"));
         submitSheet.click();
     }
 
     @And("Check if address data is correct (.*), (.*), (.*), (.*), (.*), (.*), (.*), (.*), (.*), (.*) and (.*)")
-    public void CheckAddressData(String firstName, String lastName, String alias, String company, String vat, String addressLine1, String addressLine2, String zipPostcode, String city, String country, String phone) {
+    public void CheckAddressData(String alias, String firstName, String lastName, String company, String vat, String addressLine1, String addressLine2, String city, String zipPostcode, String country, String phone) {
 
+        List<WebElement> addresses = driver.findElements(By.xpath("//article[@class=\"address\"]"));
+        String bodyText = addresses.get(addresses.size()-1).getText();
 
-        String bodyText = driver.findElement(By.xpath("/html/body/main/section/div/div/section/section/div[1]/article/div[1]")).getText();
-        Assert.assertTrue("Text not found!", bodyText.contains(alias));
-        Assert.assertTrue("Text not found!", bodyText.contains(firstName + " " + lastName));
-        Assert.assertTrue("Text not found!", bodyText.contains(company));
-        Assert.assertTrue("Text not found!", bodyText.contains(vat));
-        Assert.assertTrue("Text not found!", bodyText.contains(addressLine1));
-        Assert.assertTrue("Text not found!", bodyText.contains(addressLine2));
-        Assert.assertTrue("Text not found!", bodyText.contains(zipPostcode));
-        Assert.assertTrue("Text not found!", bodyText.contains(city));
-        Assert.assertTrue("Text not found!", bodyText.contains(phone));
-        Assert.assertTrue("Text not found!", bodyText.contains(country));
-    }
-
-    @Then("Delete address")
-    public void DeleteAddress() {
-        WebElement deleteAddress = driver.findElement(By.xpath("/html/body/main/section/div/div/section/section/div[1]/article/div[2]/a[2]"));
-        deleteAddress.click();
-    }
-
-    @And("Check if address is deleted")
-    public void DeleteAddressCheck() {
-        Assert.assertEquals(0, driver.findElements(By.xpath("/html/body/main/section/div/div/section/section/div[1]/article/div[2]/a[2]")).size());
+        Assert.assertTrue(alias + " not found!", bodyText.contains(alias));
+        Assert.assertTrue(firstName + " " + lastName + " not found!", bodyText.contains(firstName + " " + lastName));
+        Assert.assertTrue(vat + " not found!", bodyText.contains(vat));
+        Assert.assertTrue(company + " not found!", bodyText.contains(company));
+        Assert.assertTrue(addressLine1 + " not found!", bodyText.contains(addressLine1));
+        Assert.assertTrue(addressLine2 + " not found!", bodyText.contains(addressLine2));
+        Assert.assertTrue(zipPostcode + " not found!", bodyText.contains(zipPostcode));
+        Assert.assertTrue(city + " not found!", bodyText.contains(city));
+        Assert.assertTrue(phone + " not found!", bodyText.contains(phone));
+        Assert.assertTrue(country + " not found!", bodyText.contains(country));
     }
 
     @Then("Quit browser")
