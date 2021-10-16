@@ -37,11 +37,11 @@ public class zad1_LoginPlusAddress {
         WebElement emailField = driver.findElement(By.name("email"));
         emailField.click();
         emailField.clear();
-        emailField.sendKeys("qwerty@wp.pl");
+        emailField.sendKeys(email);
         WebElement passwordField = driver.findElement(By.name("password"));
         passwordField.click();
         passwordField.clear();
-        passwordField.sendKeys("12345");
+        passwordField.sendKeys(password);
     }
 
     @And("Submit LogIn Data")

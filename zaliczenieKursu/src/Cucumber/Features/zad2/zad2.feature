@@ -34,5 +34,5 @@ Feature: zad2_Order
 
     Examples:
       |size|quantity  |productName                    |
-      |M   |5         |Hummingbird Printed Sweater    |
+      |M   |5         |Hummingbird printed sweater    |
 

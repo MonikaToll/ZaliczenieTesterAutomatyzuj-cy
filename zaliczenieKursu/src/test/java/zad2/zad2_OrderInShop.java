@@ -42,11 +42,11 @@ public class zad2_OrderInShop{
         WebElement emailField = driver.findElement(By.name("email"));
         emailField.click();
         emailField.clear();
-        emailField.sendKeys("qwerty@wp.pl");
+        emailField.sendKeys(email);
         WebElement passwordField = driver.findElement(By.name("password"));
         passwordField.click();
         passwordField.clear();
-        passwordField.sendKeys("12345");
+        passwordField.sendKeys(password);
     }
 
     @And("User LogIn to the shop")
@@ -156,12 +156,9 @@ public class zad2_OrderInShop{
     public void TakeScreenshotforConfirmation() throws IOException {
         TakesScreenshot screenshot = (TakesScreenshot)driver;
         File source = screenshot.getScreenshotAs(OutputType.FILE);
-//Path to the location to save screenshot
-        //FileUtils.copyFile(
-        //Files.deleteIfExists(Paths.get("C:\\SeleniumScreenshots\\MyStoreScreen.png"));
-        Files.move(
-                source.toPath(),
-                Paths.get("C:\\SeleniumScreenshots\\MyStoreScreen_" + UUID.randomUUID() + ".png"));
+        //FileUtils.copyFile(Paths.get("C:\\SeleniumScreenshots\\MyStoreScreen.png"));
+
+        Files.move( source.toPath(), Paths.get("C:\\SeleniumScreenshots\\MyStoreScreen_" + UUID.randomUUID() + ".png"));
         //StandardCopyOption.REPLACE_EXISTING
         //source.renameTo(new File("C:\\SeleniumScreenshots\\MyStoreScreen.png"));
         System.out.println("Screenshot is captured");
